@@ -43,26 +43,54 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
-function game() {
+const buttons = document.querySelectorAll('button')
 
-    let playerWins = 0
-    let computerWins = 0
+const compResults = document.querySelector('#comp-result')
+const playerResults = document.querySelector('#player-result')
+const drawResults = document.querySelector('#draw-result')
 
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = prompt('enter your move: ')
-        let computerChoice = getComputerChoice()
-        let result = playRound(playerChoice, computerChoice)
+let compScore = 0
+let playerScore = 0
 
-        if (result.includes('Win')) {
-            playerWins++
+
+buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            let result = playRound(button.innerText, getComputerChoice());
+
+            let div = document.createElement('div')
+            div.innerText = result 
+
+            if (result.includes('Win')) {
+                playerResults.appendChild(div)
+                div.innerText = result;
+            }
+
+            else if (result.includes('Lose')) {
+                compResults.appendChild(div)
+                div.innerText = result;
+            }
+
+            else {
+                drawResults.appendChild(div)
+                div.innerText = result;
+            }
+            
+            if (result.includes('Win')) {
+                playerScore++
+                console.log(playerScore)
+            }
+            else if (result.includes('Lose')) {
+                compScore++
+                console.log(compScore)
+            }
+
+            if (playerScore >= 5 || compScore >= 5) {
+                if (playerScore > compScore) {
+                    alert('game over, you won!')
+                }
+                else if (playerScore < compScore) {
+                    alert('game over, you lost!')
+            }
         }
-        else if (result.includes('Lose')) {
-            computerWins++
-        }
-        
-        console.log(result)
-    }
-
-    console.log(`You won ${playerWins} games and the computer won ${computerWins} games`)
-
-}
+        });
+});

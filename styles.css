@@ -1,0 +1,12 @@
+#comp-result {
+    margin: 30px;
+}
+
+#player-result {
+    margin: 30px;
+}
+
+.results {
+    display: flex;
+    margin: 20px;
+}
